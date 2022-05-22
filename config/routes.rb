@@ -1,29 +1,30 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    get 'orders/show'
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-    get 'genres/index'
-    get 'genres/edit'
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
-    get 'homes/top'
+    root to: "homes#top"
+    resources :items, only:[:index,:new,:create,:show,:edit,:update]
+    # get 'items/index'
+    # get 'items/new'
+    # get 'items/show'
+    # get 'items/edit'
+    resources :genres, only:[:index,:create,:edit,:update]
+    # get 'genres/index'
+    # get 'genres/edit'
+    resources :customers, only:[:index,:show,:edit,:update]
+    # get 'customers/index'
+    # get 'customers/show'
+    # get 'customers/edit'
+    resources :orders, only:[:show,:update]
+    # get 'orders/show'
+    resources :order_details, only:[:update]
   end
 
 
-  # namespace :public do
-
     get "/about"=>"homes#about"
     root to: "homes#top"
-
     resources :items, only:[:index,:show]
     # get 'items/index'
     # get 'items/show'
-
     resources :customers, only:[:show,:edit,:update] do
       member do
         get 'unsubscrib'
@@ -36,7 +37,6 @@ Rails.application.routes.draw do
     # get 'customers/edit'
     # get 'customers/unsubscrib'
     # get 'customers/withdraw'
-
     resources :cart_items, only:[:index,:update,:create] do
       member do
         delete 'destroy'
@@ -46,7 +46,6 @@ Rails.application.routes.draw do
       end
     end
     # get 'cart_items/index'
-
     resources :orders, only:[:new,:create,:index,:show] do
       collection do
         post 'comfirm'
@@ -58,7 +57,6 @@ Rails.application.routes.draw do
     # get 'orders/complete'
     # get 'orders/index'
     # get 'orders/show'
-
     resources :addresses, only:[:index,:edit,:create,:update,:destroy]
     # get 'addresses/index'
     # get 'addresses/edit'
