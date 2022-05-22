@@ -2,53 +2,68 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'orders/show'
-  end
-  namespace :admin do
     get 'customers/index'
     get 'customers/show'
     get 'customers/edit'
-  end
-  namespace :admin do
     get 'genres/index'
     get 'genres/edit'
-  end
-  namespace :admin do
     get 'items/index'
     get 'items/new'
     get 'items/show'
     get 'items/edit'
-  end
-  namespace :admin do
     get 'homes/top'
   end
-  namespace :public do
-    get 'addresses/index'
-    get 'addresses/edit'
-  end
-  namespace :public do
-    get 'orders/new'
-    get 'orders/comfirm'
-    get 'orders/complete'
-    get 'orders/index'
-    get 'orders/show'
-  end
-  namespace :public do
-    get 'cart_items/index'
-  end
-  namespace :public do
-    get 'customers/show'
-    get 'customers/edit'
-    get 'customers/unsubscrib'
-    get 'customers/withdraw'
-  end
-  namespace :public do
-    get 'items/index'
-    get 'items/show'
-  end
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
+
+
+  # namespace :public do
+
+    get "/about"=>"homes#about"
+    root to: "homes#top"
+
+    resources :items, only:[:index,:show]
+    # get 'items/index'
+    # get 'items/show'
+
+    resources :customers, only:[:show,:edit,:update] do
+      member do
+        get 'unsubscrib'
+      end
+      collection do
+        patch 'withdraw'
+      end
+    end
+    # get 'customers/show'
+    # get 'customers/edit'
+    # get 'customers/unsubscrib'
+    # get 'customers/withdraw'
+
+    resources :cart_items, only:[:index,:update,:create] do
+      member do
+        delete 'destroy'
+      end
+      collection do
+        delete 'destroy_all'
+      end
+    end
+    # get 'cart_items/index'
+
+    resources :orders, only:[:new,:create,:index,:show] do
+      collection do
+        post 'comfirm'
+        get 'complete'
+      end
+    end
+    # get 'orders/new'
+    # get 'orders/comfirm'
+    # get 'orders/complete'
+    # get 'orders/index'
+    # get 'orders/show'
+
+    resources :addresses, only:[:index,:edit,:create,:update,:destroy]
+    # get 'addresses/index'
+    # get 'addresses/edit'
+
+
 # devise_for :customers
   # 顧客用
 # URL /customers/sign_in ...
