@@ -1,5 +1,33 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'addresses/index'
+    get 'addresses/edit'
+  end
+  namespace :public do
+    get 'orders/new'
+    get 'orders/comfirm'
+    get 'orders/complete'
+    get 'orders/index'
+    get 'orders/show'
+  end
+  namespace :public do
+    get 'cart_items/index'
+  end
+  namespace :public do
+    get 'customers/show'
+    get 'customers/edit'
+    get 'customers/unsubscrib'
+    get 'customers/withdraw'
+  end
+  namespace :public do
+    get 'items/index'
+    get 'items/show'
+  end
+  namespace :public do
+    get 'homes/top'
+    get 'homes/about'
+  end
 # devise_for :customers
   # 顧客用
 # URL /customers/sign_in ...
