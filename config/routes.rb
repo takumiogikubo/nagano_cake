@@ -1,66 +1,42 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
+
+  scope module: 'public' do
     root to: "homes#top"
-    resources :items, only:[:index,:new,:create,:show,:edit,:update]
-    # get 'items/index'
-    # get 'items/new'
-    # get 'items/show'
-    # get 'items/edit'
-    resources :genres, only:[:index,:create,:edit,:update]
-    # get 'genres/index'
-    # get 'genres/edit'
-    resources :customers, only:[:index,:show,:edit,:update]
-    # get 'customers/index'
-    # get 'customers/show'
-    # get 'customers/edit'
-    resources :orders, only:[:show,:update]
-    # get 'orders/show'
-    resources :order_details, only:[:update]
-  end
-
-
     get "/about"=>"homes#about"
-    root to: "homes#top"
     resources :items, only:[:index,:show]
-    # get 'items/index'
-    # get 'items/show'
-    resources :customers, only:[:show,:edit,:update] do
+    get 'customers/my_page' => 'customers#show'
+    resources :customers, only:[:update] do
       member do
         get 'unsubscrib'
       end
       collection do
+        get 'edit'
         patch 'withdraw'
       end
     end
-    # get 'customers/show'
-    # get 'customers/edit'
-    # get 'customers/unsubscrib'
-    # get 'customers/withdraw'
-    resources :cart_items, only:[:index,:update,:create] do
-      member do
-        delete 'destroy'
-      end
+    resources :cart_items, only:[:index,:update,:create,:destroy] do
       collection do
         delete 'destroy_all'
       end
     end
-    # get 'cart_items/index'
     resources :orders, only:[:new,:create,:index,:show] do
       collection do
         post 'comfirm'
         get 'complete'
       end
     end
-    # get 'orders/new'
-    # get 'orders/comfirm'
-    # get 'orders/complete'
-    # get 'orders/index'
-    # get 'orders/show'
     resources :addresses, only:[:index,:edit,:create,:update,:destroy]
-    # get 'addresses/index'
-    # get 'addresses/edit'
+  end
 
+  namespace :admin do
+    root to: "homes#top"
+    resources :items, only:[:index,:new,:create,:show,:edit,:update]
+    resources :genres, only:[:index,:create,:edit,:update]
+    resources :customers, only:[:index,:show,:edit,:update]
+    resources :orders, only:[:show,:update]
+    resources :order_details, only:[:update]
+  end
 
 # devise_for :customers
   # 顧客用
