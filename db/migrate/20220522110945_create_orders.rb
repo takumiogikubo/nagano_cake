@@ -3,13 +3,13 @@ class CreateOrders < ActiveRecord::Migration[6.1]
     create_table :orders do |t|
 
       t.references :customer, null:false, foreign_key: true
-      t.string :postal_code, null:false, defalt: ""
-      t.string :address, null:false, defalt: ""
-      t.string :name, null:false, defalt: ""
-      t.integer :shipping_cost, null:false, defalt: ""
-      t.integer :total_payment, null:false, defalt: ""
-      t.integer :payment_method, null:false, defalt: ""
-      t.integer :status, null:false, defalt: ""
+      t.string :postal_code, null:false, default: ""
+      t.string :address, null:false, default: ""
+      t.string :name, null:false, default: ""
+      t.integer :shipping_cost, null:false, default: ""
+      t.integer :total_payment, null:false, default: ""
+      t.integer :payment_method, null:false, default: 0
+      t.integer :status, null:false, default: 0
 
       t.timestamps
     end
