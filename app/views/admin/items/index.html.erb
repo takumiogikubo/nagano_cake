@@ -2,14 +2,27 @@
   <div class="row">
     <h4 class="mb-5 mt-5"><span class="bg-secondary">商品一覧</span></h4>
   </div>
-  <div class="row">
+    <div class= "row">
+      <table class="table table-borderless">
+        <tr class="thead-light">
+          <th>商品ID</th>
+          <th>商品名</th>
+          <th>税抜価格</th>
+          <th>ジャンル</th>
+          <th>ステータス</th>
+        </tr>
     <% @items.each do |item| %>
-    <%= item.name %>
-    <%= item.introduction %>
-    <%= item.genre_id %>
-    <%= item.price %>
-    <%= item.is_active %>
-    <%#= link_to "編集する", edit_admin_genre_path(genre),class:"btn btn-success" %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.name %></td>
+          <td><%= item.price.to_s(:delimited) %></td>
+          <td><%= item.genre.name %></td>
+          <td><% if item.is_active %><p class="text-success"><strong>販売中</strong></p><% else %><p class="text-black-50"><strong>販売停止中</strong></p><% end %></td>
+        </tr>
     <% end %>
-  </div>
+      </table>
+    </div>
+
+    <%#= item.introduction %>
+    <%#= link_to "編集する", edit_admin_genre_path(genre),class:"btn btn-success" %>
 </div>
