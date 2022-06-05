@@ -1,2 +1,50 @@
-<h1>Admin::Customers#edit</h1>
-<p>Find me in app/views/admin/customers/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h4 class="mb-5 mt-5"><span class="bg-secondary"><strong><%= @customer.last_name%><%= @customer.first_name%></strong>さんの<strong>会員情報編集</strong></span></h4>
+  </div>
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <%= form_with model: [:admin,@customer] do |f| %>
+      <table>
+        <tr>
+          <td><p>会員ID</p></td>
+          <td><%= @customer.id %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :氏名 %></td>
+          <td><%= f.text_field :last_name %><%= f.text_field :first_name %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :フリガナ %></td>
+          <td><%= f.text_field :last_name_kana %><%= f.text_field :first_name_kana %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :郵便番号 %></td>
+          <td><%= f.text_field :postal_code %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :住所 %></td>
+          <td><%= f.text_field :address %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :電話番号 %></td>
+          <td><%= f.text_field :telephone_number %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :メールアドレス%></td>
+          <td><%= f.text_field :email %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :販売ステータス%></td>
+          <td>
+            <%= f.radio_button :is_active,"false"%>
+            <%= f.label :is_active,"有効",value:"false"%>
+            <%= f.radio_button :is_active,"true"%>
+            <%= f.label :is_active,"退会",value:"true"%>
+          </td>
+      </table>
+        <%= f.submit '変更を保存',class:"btn btn-success"%>
+      <% end %>
+    </div>
+  </div>
+</div>

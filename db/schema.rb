@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_03_125831) do
+ActiveRecord::Schema.define(version: 2022_05_29_133107) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -42,9 +42,9 @@ ActiveRecord::Schema.define(version: 2022_06_03_125831) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "customer_id", null: false
-    t.string "name", null: false
-    t.string "postal_code", null: false
-    t.string "address", null: false
+    t.string "name", default: "", null: false
+    t.string "postal_code", default: "", null: false
+    t.string "address", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_addresses_on_customer_id"
@@ -73,16 +73,16 @@ ActiveRecord::Schema.define(version: 2022_06_03_125831) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string "last_name", null: false
-    t.string "first_name", null: false
-    t.string "last_name_kana", null: false
-    t.string "first_name_kana", null: false
+    t.string "last_name", default: "", null: false
+    t.string "first_name", default: "", null: false
+    t.string "last_name_kana", default: "", null: false
+    t.string "first_name_kana", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "postal_code", null: false
     t.string "address", null: false
-    t.string "telephone_number", null: false
-    t.boolean "is_deleted", null: false
+    t.string "telephone_number", default: "", null: false
+    t.boolean "is_active", default: false, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -93,17 +93,17 @@ ActiveRecord::Schema.define(version: 2022_06_03_125831) do
   end
 
   create_table "genres", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "items", force: :cascade do |t|
     t.integer "genre_id", null: false
-    t.string "name", null: false
-    t.text "introduction", null: false
+    t.string "name", default: "", null: false
+    t.text "introduction", default: "", null: false
     t.integer "price", null: false
-    t.boolean "is_active", null: false
+    t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["genre_id"], name: "index_items_on_genre_id"
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 2022_06_03_125831) do
     t.integer "item_id", null: false
     t.integer "price", null: false
     t.integer "amount", null: false
-    t.integer "makig_status", null: false
+    t.integer "makig_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_order_details_on_item_id"
@@ -123,13 +123,13 @@ ActiveRecord::Schema.define(version: 2022_06_03_125831) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "customer_id", null: false
-    t.string "postal_code", null: false
-    t.string "address", null: false
-    t.string "name", null: false
+    t.string "postal_code", default: "", null: false
+    t.string "address", default: "", null: false
+    t.string "name", default: "", null: false
     t.integer "shipping_cost", null: false
     t.integer "total_payment", null: false
-    t.integer "payment_method", null: false
-    t.integer "status", null: false
+    t.integer "payment_method", default: 0, null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"

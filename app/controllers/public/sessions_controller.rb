@@ -35,7 +35,7 @@ class Public::SessionsController < Devise::SessionsController
     ## アカウントを取得できなかった場合、このメソッドを終了する
     return if !@customer
     ## 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別
-    if @customer.valid_password?(params[:customer][:passwprd]) && !@customer.is_valid
+    if @customer.valid_password?(params[:customer][:passwprd]) && !@customer.is_active
       redirect_to new_customer_session_path
     end
   end
