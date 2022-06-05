@@ -1,2 +1,28 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<div class="container pt-5">
+  <div class="row">
+    <div class="col-2">
+      <table>
+        <tr>
+          <th>ジャンル検索</th>
+        </tr>
+        <% @genres.each do |genre|%>
+        <tr>
+          <td><%= link_to genre.name,items_path(genre_id: genre.id),class:"text-secondary"%></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-3">
+      <% if @item.image.attached?%>
+      <%=image_tag @item.image, size:"250x200" %>
+    <% else %>
+      <%=image_tag 'no_image',size:"250x200"%>
+    <% end %>
+    </div>
+    <div class="col-7">
+      <td><p><%= @item.name %></p></td>
+      <td><P><%= @item.introduction %></P></td>
+      <td><p>¥<%= (@item.price*1.10).round.to_s(:delimited) %>(税込)</p></td>
+    </div>
+  </div>
+</div>
