@@ -14,26 +14,46 @@
     </div>
     <div class="col-10">
       <% if params[:genre_id]%>
-        <h3><%= @item.genre.name%>一覧</h3><p>（全<%= @items.count%>件）</p>
-      <% else %>
-        <h3>商品一覧</h3>
-      <% end %>
+        <h3><%= @item.genre.name%>一覧</h3><p>（全<%= Item.where(genre_id: params[:genre_id]).count%>件）</p>
         <div class="d-flex flex-wrap justify-content-start">
-            <% @items.each do |item|%>
-            <div>
-              <% if item.image.attached?%>
+        <% @items.each do |item|%>
+          <div>
+            <% if item.image.attached?%>
+              <%= link_to item_path(item.id) do%>
                 <%= image_tag item.image,size:"200x150"%>
-              <% else %>
+              <% end %>
+            <% else %>
+              <%= link_to item_path(item.id) do%>
                 <%= image_tag 'no_image',size:"200x150"%>
-              <% end %><br>
-              <%= item.name%>
-              <p>¥<%= item.price.to_s(:delimited)%></p>
-            </div>
-          <% end %>
+              <% end %>
+            <% end %><br>
+            <%= item.name%>
+            <p>¥<%= item.price.to_s(:delimited)%></p>
+          </div>
+        <% end %>
         </div>
-        <div>
         <%= paginate @items%>
+      <% else %>
+        <h3>商品一覧</h3><p>（全<%= Item.all.count%>件）</p>
+        <div class="d-flex flex-wrap justify-content-start">
+        <% @items.each do |item|%>
+          <div>
+            <% if item.image.attached?%>
+              <%= link_to item_path(item.id) do%>
+                <%= image_tag item.image,size:"200x150"%>
+              <% end %>
+            <% else %>
+              <%= link_to item_path(item.id) do%>
+                <%= image_tag 'no_image',size:"200x150"%>
+              <% end %>
+            <% end %><br>
+            <%= item.name%>
+            <p>¥<%= item.price.to_s(:delimited)%></p>
+          </div>
+        <% end %>
         </div>
+        <%= paginate @items%>
+      <% end %>
     </div>
   </div>
 </div>
