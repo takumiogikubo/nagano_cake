@@ -1,6 +1,11 @@
 <div class="container">
   <div class="row">
-    <h4 class="mb-5 mt-5"><span class="bg-secondary">ショッピングカート</span></h4>
+    <div class="col-6">
+      <h4 class="mb-5 mt-5"><span class="bg-secondary">ショッピングカート</span></h4>
+    </div>
+    <div class="col-6">
+      <%= link_to "カートを空にする", destroy_all_cart_items_path, method: :delete,class: "btn btn-danger mb-5 mt-5" %>
+    </div>
   </div>
   <div class="row">
     <table>
@@ -11,20 +16,38 @@
         <th>小計</th>
         <th></th>
       </tr>
-        <% @cart_items.each do |cart_item|%>
-      <tr>
-        <td><%= cart_item.item.name %></td>
-        <td><%= (cart_item.item.price*1.10).round.to_s(:delimited) %></td>
-        <td>
-          <%= form_with model: cart_item, url: cart_item_path(cart_item), local: true, method: :patch do |f| %>
-          <%= f.number_field :amount, min: 1, max:10,id: "amount_cart"%>
-          <%= f.submit "変更",class: "btn btn-success" %>
+        <% total = 0%>
+        <% if current_customer.cart_items.present?%>
+          <% @cart_items.each do |cart_item|%>
+        <tr>
+          <td><%= cart_item.item.name %></td>
+          <td><%= (cart_item.item.price*1.10).round.to_s(:delimited) %></td>
+          <td>
+            <%= form_with model: cart_item, url: cart_item_path(cart_item), local: true, method: :patch do |f| %>
+            <%= f.number_field :amount, min: 1, max:20 ,id: "amount_cart"%>
+            <%= f.submit "変更",class: "btn btn-success" %>
+            <% end %>
+          </td>
+          <td>
+            <% subtotal = ((cart_item.item.price*1.10)*(cart_item.amount)).to_i %>
+            <%= subtotal.round.to_s(:delimited) %>
+          </td>
+          <td><%= link_to "削除する", cart_item_path(cart_item.id, cart_item), method: :delete,class: "btn btn-danger" %></td>
+        </tr>
+          <% total+=subtotal %>
           <% end %>
-        </td>
-        <td><%= ((cart_item.item.price*1.10)*(cart_item.amount)).round.to_s(:delimited) %></td>
-        <td><%= link_to "削除する", cart_item_path(cart_item.id, cart_item), method: :delete,class: "btn btn-danger" %></td>
-      </tr>
         <% end %>
     </table>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <%= link_to "買い物を続ける", items_path,class: "btn btn-primary" %>
+    </div>
+    <div class="col-6">
+      <tr>
+        <th>合計金額</th>
+        <th><%= total.round.to_s(:delimited) %></th>
+      </tr>
+    </div>
   </div>
 </div>
