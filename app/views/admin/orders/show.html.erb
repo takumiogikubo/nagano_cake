@@ -1,2 +1,52 @@
-<h1>Admin::Orders#show</h1>
-<p>Find me in app/views/admin/orders/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <table>
+      <tr>
+        <th>購入者</th>
+        <td><%= @order.customer.last_name%><%= @order.customer.first_name%></td>
+      </tr>
+      <tr>
+        <th>注文日</th>
+        <td><%= @order.created_at %></td>
+      </tr>
+      <tr>
+        <th>配送先</th>
+        <td><%= '〒'+@order.postal_code+''+@order.address+''+@order.name%></td>
+      </tr>
+      <tr>
+        <th>支払方法</th>
+        <td><%= @order.payment_method_i18n%></td>
+      </tr>
+      <tr>
+        <th>注文ステータス</th>
+        <td>
+          <%= form_with model:[:admin,@order],local: true, method: :patch do |f|%>
+            <%= f.select :status,[["入金待ち","0"],["入金確認","1"],
+            ["作成中","2"],["発送準備中","3"],["発送済み","4"]] ,class:"form-control"%>
+            <%= f.submit "更新",class: "btn btn-success"%>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <table>
+      <tr>
+        <th>商品名</th>
+        <th>単価（税込）</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th>注文スタータス</th>
+      </tr>
+      <% @order_details.each do |order_detail|%>
+      <tr>
+        <td><%= order_detail.item.name %></td>
+        <td><%= (order_detail.price*1.10).round.to_s(:delimited)%></td>
+        <td><%= order_detail.amount%></td>
+        <td><%= ((order_detail.price*1.10)*(order_detail.amount)).round.to_s(:delimited)%></td>
+        <td>仮）ステータス</td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

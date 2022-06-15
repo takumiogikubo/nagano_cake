@@ -2,6 +2,7 @@ class Public::CartItemsController < ApplicationController
 
   def index
     @cart_items=current_customer.cart_items.all
+    # @order_detail=OrderDetail.new
     # @items=I/tem.all
   end
 

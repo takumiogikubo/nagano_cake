@@ -20,7 +20,7 @@
         </tr>
         <tr>
           <th>ステータス</th>
-          <td>仮）スタータス</td>
+          <td><%=@order.status_i18n%></td>
         </tr>
       </table>
     </div>
@@ -28,21 +28,35 @@
       <table>
         <tr>
           <th>合計金額</th>
-          <td></td>
+          <td><%= @order.total_payment.round.to_s(:delimited)%></td>
         </tr>
         <tr>
           <th>配送料</th>
-          <td></td>
+          <td><%= @order.shipping_cost%></td>
         </tr>
         <tr>
           <th>ご請求額</th>
-          <td></td>
+          <td><%=(@order.total_payment + @order.shipping_cost).round.to_s(:delimited)%></td>
         </tr>
       </table>
-
     </div>
   </div>
   <div class="row">
-
+    <table>
+      <tr>
+        <th>商品</th>
+        <th>単価（税込）</th>
+        <th>個数</th>
+        <th>小計</th>
+      </tr>
+      <% @order_details.each do |order_detail|%>
+      <tr>
+        <td><%= order_detail.item.name%></td>
+        <td><%= (order_detail.price*1.10).round.to_s(:delimited)%></td>
+        <td><%= (order_detail.price*1.10).round.to_s(:delimited)%></td>
+        <td><%= ((order_detail.price*1.10)*(order_detail.amount)).round.to_s(:delimited)%></td>
+      </tr>
+      <% end %>
+    </table>
   </div>
 </div>
