@@ -53,7 +53,7 @@
       <tr>
         <td><%= order_detail.item.name%></td>
         <td><%= (order_detail.price*1.10).round.to_s(:delimited)%></td>
-        <td><%= (order_detail.price*1.10).round.to_s(:delimited)%></td>
+        <td><%= (order_detail.amount).round.to_s(:delimited)%></td>
         <td><%= ((order_detail.price*1.10)*(order_detail.amount)).round.to_s(:delimited)%></td>
       </tr>
       <% end %>

@@ -3,7 +3,7 @@
     <h4 class="mb-5 mt-5"><span class="bg-secondary">マイページ</span></h4>
   </div>
     <div class="col-9">
-      <p>登録情報</p><%= link_to "編集する", edit_customers_path,class:"btn btn-success btn-lg" %>
+      <p>登録情報</p><%= link_to "編集する", edit_customers_path,class:"btn btn-success" %>
       <table>
         <tr>
           <td><p>氏名</p></td>
@@ -30,8 +30,10 @@
           <td><p><%= current_customer.email %></p></td>
         </tr>
       </table>
-      <p>配送先</p><div class="btn btn-success btn-lg">"一覧を見る"</div>
-      <p>注文履歴</p><div class="btn btn-success btn-lg">"一覧を見る"</div>
+      <p>配送先</p>
+      <%= link_to "一覧を見る",addresses_path,class:"btn btn-primary"%>
+      <p>注文履歴</p>
+      <%= link_to "一覧を見る",orders_path,class:"btn btn-primary"%>
     </div>
   </div>
 

@@ -3,7 +3,11 @@
     <table>
       <tr>
         <th>購入者</th>
-        <td><%= @order.customer.last_name%><%= @order.customer.first_name%></td>
+        <td>
+          <%= link_to admin_customer_path(@order.customer_id) do %>
+            <%= @order.customer.last_name%><%= @order.customer.first_name%>
+          <%end%>
+        </td>
       </tr>
       <tr>
         <th>注文日</th>
@@ -29,31 +33,49 @@
     </table>
   </div>
   <div class="row">
-    <table>
-      <tr>
-        <th>商品名</th>
-        <th>単価（税込）</th>
-        <th>数量</th>
-        <th>小計</th>
-        <th>注文スタータス</th>
-      </tr>
-      <% @order_details.each do |order_detail|%>
-      <tr>
-        <td><%= order_detail.item.name %></td>
-        <td><%= (order_detail.price*1.10).round.to_s(:delimited)%></td>
-        <td><%= order_detail.amount%></td>
-        <td><%= ((order_detail.price*1.10)*(order_detail.amount)).round.to_s(:delimited)%></td>
-        <td>
-          <%= form_with model:[:admin,order_detail],local: true, method: :patch do |f|%>
-            <%#= f.select :making_status,[["着手不可","not_work"],["作成待ち","wait_work"],
-            ["作成中","work"],["作成完了","complete_work"]],class:"form-control"%>
-          <%#= form_with model:order_detail, url: admin_order_path(order_detail), class:"update_making_status" do |f|%>
-            <%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k|[I18n.t("enums.order_detail.making_status.#{k}"),k]}%>
-            <%= f.submit "更新",class: "btn btn-success"%>
-          <% end %>
-        </td>
-      </tr>
-      <% end %>
-    </table>
+    <div class="col-10">
+      <table class="table">
+        <tr>
+          <th>商品名</th>
+          <th>単価（税込）</th>
+          <th>数量</th>
+          <th>小計</th>
+          <th>注文スタータス</th>
+        </tr>
+        <% @order_details.each do |order_detail|%>
+        <tr>
+          <td><%= order_detail.item.name %></td>
+          <td><%= (order_detail.price*1.10).round.to_s(:delimited)%></td>
+          <td><%= order_detail.amount%></td>
+          <td><%= ((order_detail.price*1.10)*(order_detail.amount)).round.to_s(:delimited)%></td>
+          <td>
+            <%= form_with model:[:admin,order_detail],local: true, method: :patch do |f|%>
+              <%#= f.select :making_status,[["着手不可","not_work"],["作成待ち","wait_work"],
+              ["作成中","work"],["作成完了","complete_work"]],class:"form-control"%>
+            <%#= form_with model:order_detail, url: admin_order_path(order_detail), class:"update_making_status" do |f|%>
+              <%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k|[I18n.t("enums.order_detail.making_status.#{k}"),k]}%>
+              <%= f.submit "更新",class: "btn btn-success"%>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-2">
+      <table>
+        <tr>
+          <th>商品合計</th>
+          <td><%= @order.total_payment.round.to_s(:delimited)%></td>
+        </tr>
+        <tr>
+          <th>送料</th>
+          <td><%= @order.shipping_cost%></td>
+        </tr>
+        <tr>
+          <th>請求金額合計</th>
+          <td><%=(@order.total_payment + @order.shipping_cost).round.to_s(:delimited)%></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
