@@ -11,7 +11,7 @@ ja:
         preparation: "発送準備中"
         sended: "発送済み"
     order_detail:
-      makig_status:
+      making_status:
         not_work: "製作不可"
         wait_work: "製作待ち"
         work: "製作中"

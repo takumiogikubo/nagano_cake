@@ -21,8 +21,7 @@
         <th>注文ステータス</th>
         <td>
           <%= form_with model:[:admin,@order],local: true, method: :patch do |f|%>
-            <%= f.select :status,[["入金待ち","wait"],["入金確認","confirmation"],
-            ["作成中","work"],["発送準備中","preparation"],["発送済み","sended"]] ,class:"form-control"%>
+            <%= f.select :status, Order.statuses.keys.map{|k|[I18n.t("enums.order.status.#{k}"),k]}%>
             <%= f.submit "更新",class: "btn btn-success"%>
           <% end %>
         </td>
@@ -46,8 +45,10 @@
         <td><%= ((order_detail.price*1.10)*(order_detail.amount)).round.to_s(:delimited)%></td>
         <td>
           <%= form_with model:[:admin,order_detail],local: true, method: :patch do |f|%>
-            <%= f.select :making_status,[["着手不可","not_work"],["作成待ち","wait_work"],
+            <%#= f.select :making_status,[["着手不可","not_work"],["作成待ち","wait_work"],
             ["作成中","work"],["作成完了","complete_work"]],class:"form-control"%>
+          <%#= form_with model:order_detail, url: admin_order_path(order_detail), class:"update_making_status" do |f|%>
+            <%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k|[I18n.t("enums.order_detail.making_status.#{k}"),k]}%>
             <%= f.submit "更新",class: "btn btn-success"%>
           <% end %>
         </td>
