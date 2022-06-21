@@ -19,3 +19,30 @@
 .about-c{
   font-size: 25px;
 }
+
+.table_sticky {
+    display: block;
+    overflow-y: scroll;
+    height: 300px;
+    border:1px solid;
+    border-collapse: collapse;
+}
+.table_sticky thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background:#FFFFFF;
+    border-top:#FFFFFF;
+}
+
+.item-price{
+  font-size: 20px;
+}
+
+.item-price-tax{
+  font-size: 12px;
+}
+
+.item-introduction{
+  height:100px;
+}

@@ -1,12 +1,18 @@
 <div class="container">
   <div class="row mb-5">
-    <div class="col-2 border">
-      <p class="border-bottom">ジャンル検索</p>
-      <table>
+    <div class="col-2">
+      <table class="border table_sticky">
+        <thead class="border-bottom">
+          <tr>
+            <th>ジャンル検索</th>
+          </tr>
+        </thead>
           <% @genres.each do |genre|%>
-        <tr>
-          <td><%= link_to genre.name,items_path(genre_id: genre.id),class:"text-secondary"%></td>
-        </tr>
+        <tbody>
+          <tr>
+            <td><%= link_to genre.name,items_path(genre_id: genre.id),class:"text-secondary"%></td>
+          </tr>
+        </tbody>
         <% end %>
       </table>
     </div>
@@ -50,7 +56,7 @@
           <h3>新着商品</h3>
           <div class="d-flex flex-wrap justify-content-start">
           <% @items.each do |item|%>
-          <div>
+          <div class="ml-3">
             <% if item.image.attached?%>
               <%= link_to item_path(item.id) do%>
                 <%= image_tag item.image,size:"200x150"%>

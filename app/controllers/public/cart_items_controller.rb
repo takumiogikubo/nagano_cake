@@ -2,6 +2,7 @@ class Public::CartItemsController < ApplicationController
 
   def index
     @cart_items=current_customer.cart_items.all
+    # @item=Item.find(@cart_items.item_id)
     # @order_detail=OrderDetail.new
     # @items=I/tem.all
   end
@@ -32,9 +33,10 @@ class Public::CartItemsController < ApplicationController
       cart_item.amount += params[:cart_item][:amount].to_i
       cart_item.save
       redirect_to cart_items_path
-    elsif @cart_item.save
-      redirect_to cart_items_path
+    # elsif @cart_item.save
+    #   redirect_to cart_items_path
     else
+      @cart_item.save
       redirect_to cart_items_path
     end
 
