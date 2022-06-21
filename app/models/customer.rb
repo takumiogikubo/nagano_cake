@@ -12,7 +12,7 @@ class Customer < ApplicationRecord
   end
 
   def address_display
-    '〒'+postal_code+''+address+''+last_name+''+first_name
+    '〒'+postal_code+' '+address+'　'+last_name+' '+first_name
   end
 
 end
