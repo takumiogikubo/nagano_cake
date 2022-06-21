@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h4 class="mb-5 mt-5"><span class="bg-secondary">商品一覧</span></h4>
+    <h4 class="mb-5"><span class="bg-silver">商品一覧</span></h4>
   </div>
     <div class= "row">
       <table class="table table-borderless">
@@ -15,8 +15,8 @@
         <tr>
           <td><%= item.id %></td>
           <td>
-            <%= link_to admin_item_path(item.id) do %>
-              <%= item.name %>
+            <%= link_to admin_item_path(item.id),class:"text-dark" do %>
+              <u><%= item.name %></u>
             <%end%>
           </td>
           <td><%= item.price.to_s(:delimited) %></td>
@@ -26,6 +26,9 @@
     <% end %>
       </table>
     </div>
+    <%= paginate @items%>
+
+
 
     <%#= item.introduction %>
     <%#= link_to "編集する", edit_admin_genre_path(genre),class:"btn btn-success" %>

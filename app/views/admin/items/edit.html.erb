@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h4 class="mb-5 mt-5"><span class="bg-secondary">商品編集</span></h4>
+    <h4 class="mb-5"><span class="bg-silver">商品編集</span></h4>
   </div>
   <div class="row">
     <div class="col-6 mx-auto">
@@ -12,11 +12,11 @@
         </tr>
         <tr>
           <td><%= f.label :商品名 %></td>
-          <td><%= f.text_field :name %></td>
+          <td><%= f.text_field :name, size:40 %></td>
         </tr>
         <tr>
           <td><%= f.label :商品説明 %></td>
-          <td><%= f.text_area :introduction %></td>
+          <td><%= f.text_area :introduction, size: "39x5" %></td>
         </tr>
         <tr>
           <td><%= f.label :ジャンル %></td>
@@ -24,7 +24,7 @@
         </tr>
         <tr>
           <td><%= f.label :税抜価格 %></td>
-          <td><%= f.text_field :price %>円</td>
+          <td><%= f.text_field :price, size:40 %>円</td>
         </tr>
         <tr>
           <td><%= f.label :販売ステータス%></td>
@@ -35,8 +35,10 @@
             <%= f.label :is_active,"販売停止中",value:"false"%>
           </td>
       </table>
-        <%= f.submit '変更を保存',class:"btn btn-success"%>
-      <% end %>
     </div>
   </div>
+  <div class="row">
+    <div class="mx-auto "><%= f.submit '変更を保存',class:"btn btn-success"%></div>
+  </div>
+      <% end %>
 </div>

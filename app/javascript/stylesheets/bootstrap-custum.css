@@ -1,0 +1,21 @@
+
+.bg-silver{
+  background-color: #EEEEEE;
+}
+
+.pagination{
+  justify-content: center;
+}
+
+.bg-warning{
+  width: 70%;
+  height: 300px;
+}
+
+.about-title{
+  font-size: 80px;
+}
+
+.about-c{
+  font-size: 25px;
+}

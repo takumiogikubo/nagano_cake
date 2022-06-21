@@ -1,18 +1,16 @@
 <div class="container">
-  <div class="row">
-    <div class="col-2">
+  <div class="row mb-5">
+    <div class="col-2 border">
+      <p class="border-bottom">ジャンル検索</p>
       <table>
-        <tr>
-          <th>ジャンル検索</th>
-        </tr>
-        <% @genres.each do |genre|%>
+          <% @genres.each do |genre|%>
         <tr>
           <td><%= link_to genre.name,items_path(genre_id: genre.id),class:"text-secondary"%></td>
         </tr>
         <% end %>
       </table>
     </div>
-    <div class="col-10">
+    <div class="col-10 pl-5">
       <div class="row bg-warning">
         <p>
         ようこそ、ながのCAKEへ！<br>
@@ -21,49 +19,59 @@
         購入には会員登録が必要になります。
         </p>
       </div>
-      <div class="row">
-        <% if params[:genre_id]%>
-          <h3><%= @item.genre.name%>一覧</h3>
-          <div class="d-flex flex-wrap justify-content-start">
-          <% @items.each do |item|%>
-            <div>
-              <% if item.image.attached?%>
-                <%= link_to item_path(item.id) do%>
-                  <%= image_tag item.image,size:"200x150"%>
-                <% end %>
-              <% else %>
-                <%= link_to item_path(item.id) do%>
-                  <%= image_tag 'no_image',size:"200x150"%>
-                <% end %>
-              <% end %><br>
-              <%= item.name%>
-              <p>¥<%= item.price.to_s(:delimited)%></p>
-            </div>
-          <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-10">
+      <% if params[:genre_id]%>
+        <h3><%= @item.genre.name%>一覧</h3><br>
+        <div class="d-flex flex-wrap justify-content-start">
+        <% @items.each do |item|%>
+          <div>
+            <% if item.image.attached?%>
+              <%= link_to item_path(item.id) do%>
+                <%= image_tag item.image,size:"200x150"%>
+              <% end %>
+            <% else %>
+              <%= link_to item_path(item.id) do%>
+                <%= image_tag 'no_image',size:"200x150"%>
+              <% end %>
+            <% end %><br>
+            <%= item.name%>
+            <p>¥<%= item.price.to_s(:delimited)%></p>
           </div>
-          <%= paginate @items%>
-        <% else %>
+        <% end %>
+        </div>
+        <%= paginate @items%>
+      <% else %>
+        <div class="pl-4 d-flex flex-column">
           <h3>新着商品</h3>
           <div class="d-flex flex-wrap justify-content-start">
           <% @items.each do |item|%>
-            <div>
-              <% if item.image.attached?%>
-                <%= link_to item_path(item.id) do%>
-                  <%= image_tag item.image,size:"200x150"%>
-                <% end %>
-              <% else %>
-                <%= link_to item_path(item.id) do%>
-                  <%= image_tag 'no_image',size:"200x150"%>
-                <% end %>
-              <% end %><br>
-              <%= item.name%>
-              <p>¥<%= item.price.to_s(:delimited)%></p>
-            </div>
-          <% end %>
+          <div>
+            <% if item.image.attached?%>
+              <%= link_to item_path(item.id) do%>
+                <%= image_tag item.image,size:"200x150"%>
+              <% end %>
+            <% else %>
+              <%= link_to item_path(item.id) do%>
+                <%= image_tag 'no_image',size:"200x150"%>
+              <% end %>
+            <% end %><br>
+            <%= item.name%>
+            <p>¥<%= item.price.to_s(:delimited)%></p>
           </div>
-          <%= link_to "全ての商品を見る>",items_path %>
         <% end %>
+        </div>
+      <% end %>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col clearfix">
+      <div class="float-right test-box"><u><%= link_to "全ての商品を見る>",items_path %></u></div>
     </div>
   </div>
 </div>

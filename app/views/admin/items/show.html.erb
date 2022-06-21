@@ -1,49 +1,47 @@
 <div class="container">
   <div class="row">
-    <h4 class="mb-5 mt-5"><span class="bg-secondary">商品詳細</span></h4>
+    <h4 class="mb-5"><span class="bg-silver">商品詳細</span></h4>
   </div>
-  <div class="row">
-    <div class="col-3">
+</div>
+  <div class="row ml-5">
+    <div class="col-5 clearfix">
     <% if @item.image.attached?%>
-      <%=image_tag @item.image, size:"250x200" %>
+      <div class="float-right"><%=image_tag @item.image, size:"400x250" %></div>
     <% else %>
-      <%=image_tag 'no_image',size:"250x200"%>
+      <div class="float-right"><%=image_tag 'no_image',size:"400x250"%></div>
     <% end %>
     </div>
-    <div class="col-9">
+    <div class="col-7">
       <table>
         <tr>
           <td><p>商品名</p></td>
-          <td><p><%= @item.name %></p></td>
+          <td><h5 class="ml-4"><%= @item.name %></h5></td>
         </tr>
         <tr>
           <td><p>商品説明</p></td>
-          <td><P><%= @item.introduction %></P></td>
+          <td><h5 class="ml-4"><%= @item.introduction %></h5></td>
         </tr>
         <tr>
           <td><p>ジャンル</p></td>
-          <td><p><%= @item.genre.name %></p></td>
+          <td><h5 class="ml-4"><%= @item.genre.name %></h5></td>
         </tr>
         <tr>
           <td>
             <p>税込価格<br>(税込価格)</p>
           </td>
-          <td><p><%= @item.price.to_s(:delimited) %>(<%= (@item.price*1.10).round.to_s(:delimited) %>)円</p></td>
+          <td><h5 class="ml-4"><%= @item.price.to_s(:delimited) %>(<%= (@item.price*1.10).round.to_s(:delimited) %>)円</h5></td>
         </tr>
         <tr>
           <td><p>販売ステータス</p></td>
           <td>
             <% if @item.is_active %>
-              <p class="text-success"><strong>販売中</strong></p>
+              <h5 class="text-success ml-4"><strong>販売中</strong></h5>
             <% else %>
-              <p class="text-black-50"><strong>販売停止中</strong></p>
+              <h5 class="text-black-50 ml-4"><strong>販売停止中</strong></h5>
             <% end %>
           </td>
         </tr>
       </table>
-      <%= link_to "編集する", edit_admin_item_path(@item.id),class:"btn btn-success btn-lg" %>
+      <%= link_to "編集する", edit_admin_item_path(@item.id),class:"btn btn-success btn-lg ml-5" %>
     </div>
   </div>
-
-
-</div>
