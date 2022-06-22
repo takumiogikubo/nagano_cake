@@ -1,23 +1,33 @@
 <div class="container">
   <div class="row">
-    <div class="col">
-      <table>
-        <tr>
-          <th>商品名</th>
-          <th>単価（税込）</th>
-          <th>数量</th>
-          <th>小計</th>
+    <h4 class="mb-5"><span class="bg-silver">　注文情報確認　</span></h4>
+  </div>
+  <div class="row ml-n5">
+    <div class="col-9">
+      <table class="table table-bordered">
+        <tr class="table-active">
+          <th style="width:46%">商品名</th>
+          <th style="width:18%">単価（税込）</th>
+          <th style="width:18%">数量</th>
+          <th style="width:18%">小計</th>
         </tr>
           <% total = 0%>
           <% if current_customer.cart_items.present?%>
           <% @cart_items.each do |cart_item|%>
         <tr>
-          <td><%= cart_item.item.name %></td>
-          <td><%= (cart_item.item.price*1.10).round.to_s(:delimited) %></td>
-          <td>
+          <td class="align-middle py-0">
+            <% if cart_item.item.image.attached?%>
+              <%=image_tag cart_item.item.image, size:"50x40" %>
+            <% else %>
+              <%=image_tag 'no_image',size:"50x40"%>
+            <% end %>
+            <strong class="ml-3"><%= cart_item.item.name %></strong>
+          </td>
+          <td class="align-middle"><%= (cart_item.item.price*1.10).round.to_s(:delimited) %></td>
+          <td class="align-middle">
             <%= cart_item.amount %>
           </td>
-          <td>
+          <td class="align-middle">
             <% subtotal = ((cart_item.item.price*1.10)*(cart_item.amount)).to_i %>
             <%= subtotal.round.to_s(:delimited) %>
           </td>
@@ -27,36 +37,51 @@
           <% end %>
       </table>
     </div>
-    <div class="col">
-      <tr>
-        <th>送料</th>
-        <td><%= 800%></td>
-      </tr><br>
-      <tr>
-        <th>商品合計</th>
-        <td><%= total.round.to_s(:delimited) %></td>
-      </tr><br>
-      <tr>
-        <th>請求金額</th>
-        <td><%= (total+ 800).round.to_s(:delimited)%></td>
-      </tr>
+    <div class="col-3">
+      <table class="table table-bordered">
+        <tr>
+          <th class="table-active">送料</th>
+          <td><%= 800%></td>
+        </tr>
+        <tr>
+          <th class="table-active">商品合計</th>
+          <td><%= total.round.to_s(:delimited) %>
+        </tr>
+        <tr>
+          <th class="table-active">請求金額</th>
+          <td><%= (total+ 800).round.to_s(:delimited)%></td>
+        </tr>
+      </table>
     </div>
   </div>
   <div class="row">
-    <%= @order.payment_method_i18n %>
-    <%= '〒'+@order.postal_code+''+@order.address+''+@order.name %>
+    <table class="mt-3 mb-5">
+      <tr>
+        <th>支払方法</th>
+        <td><div class="ml-3"><%= @order.payment_method_i18n %></div></td>
+      </tr>
+      <tr>
+        <th class="align-top"><div class="mt-4">お届け先</div></th>
+        <td>
+          <div class="mb-n2 mt-4 ml-3"><%='〒'+@order.postal_code+''+@order.address%></div>
+          <div class="ml-3"><%=@order.name%></div>
+        </td>
+      </tr>
+    </table>
   </div>
   <div class="row">
-    <%= form_with model: @order do |f|%>
-    <%= f.hidden_field :customer_id, :value => current_customer.id %>
-    <%= f.hidden_field :payment_method, :value => @order.payment_method %>
-    <%= f.hidden_field :total_payment, :value => total %>
-    <%= f.hidden_field :shipping_cost, :value => 800 %>
-    <%= f.hidden_field :address, :value => @order.address %>
-    <%= f.hidden_field :postal_code, :value => @order.postal_code %>
-    <%= f.hidden_field :name, :value => @order.name %>
-    <%= f.hidden_field :status, :value => "wait" %>
-    <%= f.submit '注文を確定する',class:"btn btn-success"%>
-    <% end %>
+    <div class="col-3 mx-auto">
+      <%= form_with model: @order do |f|%>
+      <%= f.hidden_field :customer_id, :value => current_customer.id %>
+      <%= f.hidden_field :payment_method, :value => @order.payment_method %>
+      <%= f.hidden_field :total_payment, :value => total %>
+      <%= f.hidden_field :shipping_cost, :value => 800 %>
+      <%= f.hidden_field :address, :value => @order.address %>
+      <%= f.hidden_field :postal_code, :value => @order.postal_code %>
+      <%= f.hidden_field :name, :value => @order.name %>
+      <%= f.hidden_field :status, :value => "wait" %>
+      <%= f.submit '　注文を確定する　',class:"btn btn-success"%>
+      <% end %>
+    </div>
   </div>
 </div>
