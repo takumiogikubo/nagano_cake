@@ -1,6 +1,7 @@
 class Public::OrdersController < ApplicationController
   def new
     @order=Order.new
+    @address=current_customer.addresses.all
   end
 
   def comfirm
@@ -42,9 +43,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.all
+    @orders = current_customer.orders.all
     # @cart_items = CartItem.all
-    @order_details = OrderDetail.all
+    # @order_details = OrderDetail.all
   end
 
   def show
