@@ -7,7 +7,11 @@ class Admin::OrdersController < ApplicationController
   def update
     @order=Order.find(params[:id])
     @order.update(order_params)
-    redirect_to admin_root_path
+    if @order.status == "confirmation"
+      @order.order_details.update(making_status: 1)
+    end
+    redirect_back fallback_location: { action: "show", id: :id }
+
   end
 
 
