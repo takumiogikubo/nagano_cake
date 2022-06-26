@@ -10,6 +10,7 @@ class Admin::OrdersController < ApplicationController
     if @order.status == "confirmation"
       @order.order_details.update(making_status: 1)
     end
+
     redirect_back fallback_location: { action: "show", id: :id }
 
   end
