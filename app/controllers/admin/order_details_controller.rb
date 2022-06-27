@@ -3,12 +3,15 @@ class Admin::OrderDetailsController < ApplicationController
   def update
     @order_detail=OrderDetail.find(params[:id])
     @order_detail.update(order_detail_params)
+    @order = @order_detail.order
+    @order_details = @order.order_details
+
 
     if @order_detail.making_status == "work"
       Order.update(status: 2)
     end
 
-    if OrderDetail.all.making_statuses == "complete_work"
+    if @order.order_details.count == @order_details.where(making_status: "complete_work").count
       Order.update(status: 3)
     end
 
